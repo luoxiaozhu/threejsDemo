@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>S3D预研</title>
+    <script src="js/jquery.js"></script>
+    <script src="js/three.min.js"></script>
+    <script src="js/collect.js"></script>
+    <script src="js/Number_Initialize.js"></script>
+    <style type="text/css">
+    html {
+        width: 100%;
+        height: 100%;
+    }
+    body {
+        margin: 0;
+        background: #fff;
+        width: 100%;
+        height: 100%;
+        color: #fff;
+    }
+
+    div#canvas-frame {
+        width: 800px;
+        height: 600px;
+        background-color: #020A44;
+    }
+    </style>
+    <script>
+    function start() {
+        var SMInit = new Number_Initialize();
+
+        SMInit.init("canvas-frame", {
+            camera: {
+                position: [0, 150, 150],
+                zoom: 2.0
+            },
+            scene: {
+                position: [0, 0, 0],
+                rotateSpeed: -0.005
+            },
+            controls: {
+                enableZoom: true,
+                enablePan: true,
+                enableRotate: true,
+                polarAngle: [0, Math.PI/2],
+            },
+            earth: {
+                color: "#565A78"
+            }
+        });
+
+        SMInit.render();
+        SMInit.setDatas([],{type:"line"});
+        // setTimeout(function(){
+        //      SMInit.setDatas([],{type:"circle"});
+        // },4000);
+        // setTimeout(function(){
+        //      SMInit.setDatas([],{type:"tilde"});
+        // },8000);
+
+    }
+    </script>
+</head>
+
+<body onload="start();">
+    <div id="canvas-frame"></div>
+</body>
+
+</html>
