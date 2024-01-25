@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./exhibit/libs/jquery.js"></script>
+    <script src="./exhibit/libs/vue.min.js"></script>
+    <script src="./exhibit/libs/axios.min.js"></script>
+    <title>W3D</title>
+    <style>
+        .item {
+            cursor: pointer;
+            font-size: 14px;
+            line-height: 32px;
+
+        }
+        .item:hover{
+            color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="item in pages" class="item" :key="item.name" @click="itemClick(item)">
+                {{item.name}}
+            </li>
+        </ul>
+    </div>
+    <script>
+        axios.interceptors.response.use((res) => {
+            const result = res || {};
+            if (result.status === 200) {
+                return result.data;
+            }
+        });
+
+        // vue
+        const VM = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    pages: [
+                        { name: 'W3D效果列表', url: '/exhibit/index.html' },
+                        { name: 'W3D页面编辑', url: ':8080' },
+                        { name: 'THREEJS', url: ':3003/items/' }
+                    ]
+                }
+            },
+            created() {
+                 
+            },
+            mounted() {
+            },
+            methods: {
+                itemClick(item) {
+                    window.location.href = window.location.origin + item.url
+                }
+            }
+        });
+    </script>
+</body>
+</html>

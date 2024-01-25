@@ -1,0 +1,280 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+.d-i {
+  display: inline-block;
+}
+.full{
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+}
+.cur{
+  cursor: pointer;
+}
+.itemFlex{
+  display: flex;
+  justify-content: space-between;
+}
+.item-head{
+  width: 250px;
+  position: absolute;
+  top: 0;
+  left: 0; 
+  height: 34px;
+  background: #ddd;
+  border-right: 1px solid #ddd;
+  font-size: 13px;
+}
+.item-head-inp{
+  /* margin-left:8px;
+  margin-top:6px; */
+  
+}
+.items {
+  width: 250px;
+  position: absolute;
+  top: 34px;
+  left: 0;
+  bottom: 0;
+  background: #efefef;
+  border-right: 1px solid #ddd;
+  font-size: 13px;
+}
+.item-list {
+  overflow-y: scroll;
+  height: calc(100vh - 160px);
+}
+.items .item {
+  text-indent: 5px;
+  line-height: 20px;
+}
+.items .item span {
+  cursor: pointer;
+}
+.active {
+  color: #f00;
+}
+.itemImg{
+  height: 110px;
+  width: 100%;
+
+  overflow: hidden;
+  background-size: cover;
+  background-position: center center;
+}
+ .itemName{
+   line-height: 32px;
+   font-size: 18px;
+   font-weight: 600;
+ }
+ .fd{
+   width:14px;
+   height:14px;
+   line-height: 32px;
+   vertical-align: middle;
+   margin-left: 5px;
+   margin-top: 9px;
+    margin-right: 5px;
+ }
+.fullbtn{
+  position: absolute;
+  left:310px;
+  top:10px;
+  z-index: 100;
+  background:rgba(0, 0, 0, 0);
+  padding:0;
+  margin:0;
+  cursor: pointer;
+}
+.exhibits {
+  position: absolute;
+  right: 0;
+  left: 251px;
+  bottom: 0;
+  top: 0;
+  /* overflow-y: scroll; */
+  font-size: 13px;
+}
+.exhibits .exhibits-images {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  padding: 20px;
+  display: inline-block;
+}
+.exhibits .exhibits-images img {
+  width: 100%;
+}
+.break {
+  word-break: break-all;
+  margin-bottom: 10px;
+}
+.menu {
+  width: 150px;
+  height: auto;
+  line-height: 20px;
+  font-size: 13px;
+  position: absolute;
+  background: #fff;
+  border-radius: 5px;
+  border: 2px solid #777;
+  padding: 5px 6px;
+}
+.menu .menu-item {
+  cursor: pointer;
+}
+.menu .menu-item:hover {
+  color: #f00;
+}
+
+/* 侧边栏样式 created by yilujun on 2021-9-9 */
+::-webkit-scrollbar
+{
+    width:12px;
+    height:12px;
+    background-color:#38393a;
+}
+::-webkit-scrollbar-track {
+  background-color: #38393a;
+} /* 滚动条的滑轨背景颜色 */
+
+::-webkit-scrollbar-thumb {
+  background-color: #4b4d4f;
+} /* 滑块颜色 */
+
+::-webkit-scrollbar-corner {
+  background-color: #38393a;
+} /* 横向滚动条和纵向滚动条相交处尖角的颜色 */
+ul {
+  list-style: none;
+}
+.clearfix:after {
+  clear: both;
+  display: table;
+  content: '';
+}
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+.topbar {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  background: #171819;
+}
+.title {
+  padding-left: 18px;
+  line-height: 50px;
+  font-size: 16px;
+  color: #fff;
+  font-weight: normal;
+}
+.title .icon-fold {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 6px;
+  width: 16px;
+  height: 12px;
+  background: url(../image/icon_fold.png) no-repeat;
+}
+.item-head {
+  top: 50px;
+  padding: 8px 16px;
+  height: 36px;
+  border-bottom: 1px solid #323334;
+  background: #3f4041;
+  box-sizing: border-box;
+  border-right: 0;
+}
+.item-head-inp {
+  position: relative;
+  display: block;
+  padding: 0 4px;
+  width: 100%;
+  height: 20px;
+  border: 1px solid #4b4d4f;
+  background: #38393a;
+  font-size: 12px;
+  color: #fff;
+  box-sizing: border-box;
+  border-radius: 2px;
+  outline: none;
+}
+.item-head-inp:focus {
+  border-radius: 2px;
+  border: 1px solid #13d2b5;
+}
+.item-head:after {
+  position: absolute;
+  top: 11px;
+  right: 22px;
+  display: block;
+  content: '';
+  width: 13px;
+  height: 14px;
+  background: url(../image/icon_search.png) no-repeat;
+}
+.items {
+  top: 86px;
+  padding: 16px;
+  padding-right: 0;
+  border-right: 0;
+  box-sizing: border-box;
+  background: #38393a;
+}
+.item-actions {
+  margin-bottom: 12px;
+}
+.item-actions label {
+  line-height: 24px;
+  color: #8c8c8c;
+}
+.item-actions .tab {
+  margin-right: 16px;
+}
+.item-actions .tab ul {
+  display: flex;
+}
+.item-actions .tab li {
+  flex: 1;
+  width: 72px;
+  height: 24px;
+  line-height: 22px;
+  text-align: center;
+  background: #3f4041;
+  border: 1px solid #4b4d4f;
+  box-sizing: border-box;
+  font-size: 12px;
+  color: #d8d8d8;
+  cursor: pointer;
+}
+.is-active {
+  color: #13d2b5 !important;
+  border-color: #13d2b5 !important;
+}
+.item {
+  padding: 8px;
+  background: #323334;
+}
+.itemName {
+  font-size: 12px;
+  color: #d8d8d8;
+  font-weight: normal;
+}
+.itemImg {
+  border: 1px solid #13d2b5;
+  border-radius: 4px;
+}
+.exhibits {
+  top: 50px;
+  left: 250px;
+}

@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>containergl example</title>
+    <style rel="stylesheet">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            background: #ffffff;
+            width: 100%;
+            height: 100%;
+        }
+
+        #canvas-frame {
+            width: 100%;
+            height: 100%;
+            background: #091E25;
+
+            /*width: 1920px;
+            height: 1080px;
+            background-image: url(bgImg/bg.png);*/
+        }
+
+        /*#left {
+            position: absolute;
+            top: 0;
+            width: 389px;
+            height: 1080px;
+            z-index: 5;
+            background-image: url(bgImg/left.png);
+        }
+        #right {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 389px;
+            height: 1080px;
+            z-index: 5;
+            background-image: url(bgImg/right.png);
+        }
+        #bottom {
+            position: absolute;
+            bottom: 0;
+            width: 1920px;
+            height: 379px;
+            z-index: 5;
+            background-image: url(bgImg/bottom.png);
+        }*/
+
+    </style>
+</head>
+
+<body>
+    <div id="canvas-frame"></div>
+
+<script type="text/javascript" src="./libs.min.js"></script><script type="text/javascript" src="./glInstance.min.js"></script></body>
+
+
+
+<script>
+    //
+    const instance = new glInstance();
+
+window._instance = instance;
+// gui
+// datGui(instance);
+
+const glassMat = {
+    roughness: 0.05,
+    metalness: 0.6,
+    clearcoat: 0.6,
+    clearcoatRoughness: 0.2
+}
+const treeMat = {
+    alphaTest: 0.3,
+    side: 2,
+    opacity: 1.2
+    //   transparent: true
+}
+
+const loadeComp = {
+    name: 'LoaderModel', // 当前组件的名称 用于调用对应的组件
+    id: 'model1', // 当前组件的key值 用于监控当前组件的变化或者事件
+
+    config: {
+        order: true, // true 按照顺序加载 false 一起加载
+        chassis: {
+            radius: 10000,
+            position: {
+                x: 0,
+                y: -50,
+                z: 0
+            },
+            gradient: [
+                'rgba(10,13,26,1)',
+                'rgba(10,13,26,0.0)',
+            ]
+        }, // 配置底盘显示  装饰作用
+        model: [
+            {
+                url: './models/out02.FBX',
+                id: 'index_1',
+                replaceMaterial: 'MeshPhysicalMaterial', // 是否替换材质
+                pick: [], // 拾取的物体  'all' 为所有物体
+                animate: [{
+                    name: 'Main_Rotor',
+                    rotation: {
+                        z: 8
+                    }
+                }], // 需要控制的动画物体
+                bake: [
+                    {
+                        name: 'buiding_01',
+                        uv2: 'buiding_01'
+                    },
+                    {
+                        name: 'buiding_02',
+                        uv2: 'buiding_02'
+                    },
+                    {
+                        name: 'land',
+                        uv2: 'landVRay'
+                    },
+                ],
+                mesh: [
+                ],
+                material: [
+                    {
+                        name: 'Material #1734571067',
+                        alphaMap: null,
+                        vertexColors: false,
+                        roughness: 0.05,
+                        metalness: 0.4,
+                        clearcoat: 0.9,
+                        clearcoatRoughness: 0.1,
+                        transparent: true,
+                        // side: 2,
+                        color: new THREE.Color("#544c2f"),
+                        sheen: new THREE.Color("#80A5AD"),
+                        // transmission: 0.05,
+                        ior: 2.3
+                    },
+                    {
+                        name: 'glass003',
+                        ...glassMat
+                    },
+                    {
+                        name: 'glass001',
+                        ...glassMat
+                    },
+                    {
+                        name: 'glass004',
+                        ...glassMat
+                    },
+                    {
+                        name: 'glass002',
+                        ...glassMat
+                    },
+                    {
+                        name: 'matel001',
+                        roughness: 0.15,
+                        metalness: 0.4,
+                        clearcoat: 0.1,
+                        clearcoatRoughness: 0.5
+                    },
+                    {
+                        name: 'Material #274.001',
+                        roughness: 0.15,
+                        metalness: 0.4,
+                        clearcoat: 0.1,
+                        clearcoatRoughness: 0.5
+                    },
+                    {
+                        name: 'Material #118',
+                        roughness: 0.1,
+                        metalness: 0.4,
+                        clearcoat: 0.6,
+                        clearcoatRoughness: 0.1
+                    },
+                    {
+                        name: 'Material #1734570832',
+                        roughness: 0.4,
+                        metalness: 0.4,
+                        clearcoat: 0.5,
+                        clearcoatRoughness: 0.5
+                    },
+                    {
+                        name: 'load',
+                        roughness: 0.3,
+                        metalness: 0.4,
+                        clearcoat: 0.5,
+                        clearcoatRoughness: 0.3
+                    },
+                    {
+                        name: 'Material #1734571022',
+                        roughness: 0.3,
+                        metalness: 0.4,
+                        clearcoat: 0.5,
+                        clearcoatRoughness: 0.3,
+                        sheen: new THREE.Color("#80A5AD"),
+                    },
+                    {
+                        name: 'hz26',
+                        normalMap: 'hz26'
+                    },
+                    {
+                        name: 'hz02',
+                        normalMap: 'hz02'
+                    },
+                    {
+                        name: 'tree01',
+                        ...treeMat
+                    },
+                    {
+                        name: 'tree02',
+                        ...treeMat
+                    },
+                    {
+                        name: 'tree03',
+                        ...treeMat
+                    },
+                    {
+                        name: 'alpha_tree04',
+                        ...treeMat,
+                        roughness: 0.4,
+                        metalness: 0.1,
+                    }
+                ], // 修改材质的属性
+
+            },
+            // {
+            //     url: './models/in01.FBX',
+            //     id: 'index_2',
+            //     replaceMaterial: 'MeshPhysicalMaterial', // 是否替换材质
+            //     pick: [], // 拾取的物体  'all' 为所有物体
+            //     animate: [{
+            //         name: 'Main_Rotor',
+            //         rotation: {
+            //             z: 8
+            //         }
+            //     }], // 需要控制的动画物体
+            //     bake: [
+            //         {
+            //             name: 'wall',
+            //             uv2: 'wall'
+            //         },
+            //         {
+            //             name: 'ZT01',
+            //             uv2: 'ZT01'
+            //         },
+            //         {
+            //             name: 'ZT02',
+            //             uv2: 'ZT02'
+            //         },
+            //     ],
+            //     mesh: [
+            //     ],
+            //     material: [
+
+            //     ], // 修改材质的属性
+
+            // }
+        ]
+    },
+    renderOrder: 0, // 当前组件的渲染层级
+    renderSort: 1, // 当前组件的渲染顺序
+    created() {
+        /* 生成组件后的生命周期 （在生成效果前） */
+        // console.log("created");
+    },
+    mounted(group) {
+        group.position.set(0, 0, 0)
+        console.log(group)
+    },
+    destroyed() {
+        /* 当前组件销毁后执行的回调 */
+        console.log("destroyed");
+    },
+    update(object) {
+        /* 当前组件中的mesh发生变化 触发 */
+        // console.log(object);
+    },
+    watch(object) {
+        /* 当前组件每次修改效果后的回调 增删改 */
+        console.log("watch");
+    }
+};
+
+
+const divCallback = (background, content) => {
+    const divStr = `<div style = "width: 72px;height: 52px;background: url('${background}') no-repeat 100% 100%;">
+    <div style="color: #fbf5f5;font-size: 20px;position: absolute;left: 8px;top: 7px; white-space:nowrap;">${content}</div></div>`;
+    return divStr;
+};
+
+const pointTips = {
+    name: 'pointTips', // 当前组件的名称 用于调用对应的组件
+    id: 'pointTips1', // 当前组件的key值 用于监控当前组件的变化或者事件
+    config: {
+        points: [
+            {
+                position: { x: 0, y: 20, z: 50 },
+                spreadStyle: {
+                    size: 50,
+                    color: '#FF0000',
+                    textureName: 'spread'
+                },
+                tipStyle: {
+                    content: '门禁异常：YA0001',
+                    url: 'pointTips/red.png'
+                }
+            },
+            {
+                position: { x: 0, y: 20, z: -80 },
+                spreadStyle: {
+                    color: '#FFFFFF',
+                    textureName: 'spread'
+                },
+                tipStyle: {
+                    content: '门禁编号：YA0002',
+                    url: 'pointTips/tip.png'
+                }
+            },
+            {
+                position: { x: -180, y: 20, z: 20 },
+                spreadStyle: {
+                    color: '#FFFFFF',
+                    textureName: 'spread'
+                },
+                tipStyle: {
+                    content: '门禁编号：MA0001',
+                    url: 'pointTips/tip.png'
+                }
+            },
+            {
+                position: { x: -90, y: 20, z: 100 },
+                spreadStyle: {
+                    color: '#FFFFFF',
+                    textureName: 'spread'
+                },
+                tipStyle: {
+                    content: '门禁编号：AJ0001',
+                    url: 'pointTips/tip.png'
+                }
+            },
+            {
+                position: { x: 90, y: 20, z: 100 },
+                spreadStyle: {
+                    color: '#FFFFFF',
+                    textureName: 'spread'
+                },
+                tipStyle: {
+                    content: '门禁编号：AF0001',
+                    url: 'pointTips/tip.png'
+                }
+            },
+            {
+                position: { x: -20, y: 20, z: -40 },
+                mouseEvent: true,
+                opacityMark: true,
+                tipStyle: {
+                    content: '1号馆',
+                    url: 'pointTips/blob.png',
+                    divCallback
+                }
+            },
+            {
+                position: { x: 160, y: 20, z: -40 },
+                mouseEvent: true,
+                opacityMark: true,
+                tipStyle: {
+                    content: '2号馆',
+                    url: 'pointTips/blob.png',
+                    divCallback
+                }
+            },
+            {
+                position: { x: 160, y: 20, z: 70 },
+                mouseEvent: true,
+                opacityMark: true,
+                tipStyle: {
+                    content: '3号馆',
+                    url: 'pointTips/blob.png',
+                    divCallback
+                }
+            },
+            {
+                position: { x: 120, y: 20, z: 70 },
+                mouseEvent: true,
+                opacityMark: true,
+                tipStyle: {
+                    content: '4号馆',
+                    url: 'pointTips/blob.png',
+                    divCallback
+                }
+            },
+            {
+                position: { x: 100, y: 20, z: 70 },
+                mouseEvent: true,
+                opacityMark: true,
+                tipStyle: {
+                    content: '5号馆',
+                    url: 'pointTips/blob.png',
+                    divCallback
+                }
+            },
+            {
+                position: { x: -40, y: 20, z: 70 },
+                mouseEvent: true,
+                opacityMark: true,
+                tipStyle: {
+                    content: '6号馆',
+                    url: 'pointTips/blob.png',
+                    divCallback
+                }
+            },
+            {
+                position: { x: -100, y: 20, z: 70 },
+                mouseEvent: true,
+                opacityMark: true,
+                tipStyle: {
+                    content: '7号馆',
+                    url: 'pointTips/blob.png',
+                    divCallback
+                }
+            },
+            {
+                position: { x: -160, y: 20, z: 70 },
+                mouseEvent: true,
+                opacityMark: true,
+                tipStyle: {
+                    content: '8号馆',
+                    url: 'pointTips/blob.png',
+                    divCallback
+                }
+            },
+            {
+                position: { x: -130, y: 20, z: -40 },
+                mouseEvent: true,
+                opacityMark: true,
+                tipStyle: {
+                    content: '9号馆',
+                    url: 'pointTips/blob.png',
+                    divCallback
+                }
+            }
+        ]
+    },
+    renderOrder: 0, // 当前组件的渲染层级
+    renderSort: 2, // 当前组件的渲染顺序
+    created() {
+        /* 生成组件后的生命周期 （在生成效果前） */
+        // console.log("created");
+    },
+    mounted(group) {
+        console.log(group)
+    },
+    destroyed() {
+        /* 当前组件销毁后执行的回调 */
+        console.log("destroyed");
+    },
+    update(object) {
+        /* 当前组件中的mesh发生变化 触发 */
+        // console.log(object);
+    },
+    watch(object) {
+        /* 当前组件每次修改效果后的回调 增删改 */
+        console.log("watch");
+    }
+};
+
+pointTips.config.points.forEach((e) => {
+    e.position.x *= 1.01;
+    e.position.y *= 1.01;
+    e.position.z *= 1.01;
+})
+
+const path = '';
+
+// 初始化
+instance.init({
+    sort: true,
+    // 基础配置
+    render: {
+        cts: 'canvas-frame', // 容器 dom 或id
+        camera: {
+            near: 2,
+            far: 40000,
+            position: { "x": -344.5, "y": 202.36, "z": 482.13 }
+        },
+        controls: {
+            target: { "x": -1.54, "y": 15, "z": -2.45 }, // 中心位置
+        }
+    },
+    sky: {
+        type: 'hdr', // 添加方式
+        url: 'texture/basic.hdr',
+        // url: 'texture/royal_esplanade_1k.hdr',
+        sky: true, // 是否启动天空盒
+        state: true,
+        material: []
+    },
+    components: [
+        loadeComp,
+        pointTips
+    ],
+    textures: [
+        {
+            id: 'spread',
+            url: path + 'pointTips/spread.png'
+        },// -烘焙
+        {
+            id: 'landVRay',
+            url: path + 'texture/landVRay.jpg'
+        },
+        {
+            id: 'buiding_01',
+            url: path + 'texture/buiding_01.jpg'
+        },
+        {
+            id: 'buiding_02',
+            url: path + 'texture/buiding_02.jpg'
+        },
+        {
+            id: 'wall',
+            url: path + 'texture/wall.jpg'
+        },
+        {
+            id: 'ZT01',
+            url: path + 'texture/ZT01.jpg'
+        },
+        {
+            id: 'ZT02',
+            url: path + 'texture/ZT02.jpg'
+        },
+        {
+            id: 'hz02',
+            url: path + 'texture/hz02.png'
+        },
+        {
+            id: 'hz26',
+            url: path + 'texture/hz26.png'
+        }
+    ]
+});
+
+window._data = [];
+window._data2 = [];
+instance.on('onMouseDown', 'render', (e) => {
+    if (instance.getComponent('render').isCtrl) {
+        const vec3 = instance.trans({ x: e.offsetX, y: e.offsetY }, 1);
+        console.log(vec3);
+
+        _data.push([vec3.x | 0, vec3.z | 0]);
+        _data2.push({
+            vec: [vec3.x | 0, vec3.z | 0],
+            weight: (Math.random() * 500) | 0
+        });
+    }
+});
+
+window._getVecs = function (type) {
+    type ? console.log(JSON.stringify(_data)) : console.log(JSON.stringify(_data2));
+    window._data = [];
+    window._data2 = [];
+}
+
+
+</script>
+
+</html>

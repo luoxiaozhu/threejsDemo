@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./libs/jquery.js"></script>
+    <script src="./libs/vue.min.js"></script>
+    <script src="./libs/axios.min.js"></script>
+    <script src="./libs/three.min.js"></script>
+    <script src="./libs/OrbitControls.js"></script>
+    <script src="./src/gl.js"></script>
+    <link rel="stylesheet" href="./style/index.css">
+    <title>资源展示</title>
+</head>
+
+<body>
+    <div id="app">
+        <div class="topbar">
+            <h3 class="title"><i class="icon-fold"></i>资源展示</h3>
+        </div>
+        <div class="item-head">
+            <input placeholder="关键字搜索" class="item-head-inp" value="" v-model="search" />
+            <!-- <span class="cur" @click="visibleImg = !visibleImg">{{visibleImg?'隐藏':'显示'}}图片</span> -->
+        </div>
+        <div class="items">
+            <div class="item-actions clearfix">
+                <label class="fl">预览</label>
+                <div class="tab fr">
+                    <ul>
+                        <li :class="visibleImg ? 'is-active' : ''" @click="visibleImg = true">显示图片</li>
+                        <li :class="!visibleImg ? 'is-active' : ''" @click="visibleImg = false">隐藏图片</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="item-list">
+                <div class="item" v-show="item.name.includes(search)" v-for="item in items" :key="item.name">
+                    <span class="break" :class="item.name === activeName ? 'active':''">
+                        <div class="itemFlex">
+                            <span @click="pageClick(item)" class="itemName"> {{item.name}}</span>
+
+                            <img class="fd" src="./image/icon_preview.png" alt="" @click="hrefUrl(item)">
+                        </div>
+                        <div class="itemImg" v-if="visibleImg" @click="pageClick(item)"
+                            :style="{'background-image':'url('+item.img+')'}">
+                            <!-- <img :src="item.img" alt=""> -->
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="exhibits">
+            <iframe class="full" src="" frameborder="0" ref="iframe"></iframe>
+        </div>
+
+    </div>
+
+    <script>
+        function UrlDecode(zipStr) {
+            var uzipStr = "";
+            for (var i = 0; i < zipStr.length; i++) {
+                var chr = zipStr.charAt(i);
+                if (chr == "+") {
+                    uzipStr += " ";
+                } else if (chr == "%") {
+                    var asc = zipStr.substring(i + 1, i + 3);
+                    if (parseInt("0x" + asc) > 0x7f) {
+                        uzipStr += decodeURI("%" + asc.toString() + zipStr.substring(i + 3, i + 9).toString());
+                        i += 8;
+                    } else {
+                        uzipStr += AsciiToString(parseInt("0x" + asc));
+                        i += 2;
+                    }
+                } else {
+                    uzipStr += chr;
+                }
+            }
+
+            return uzipStr;
+        }
+        axios.interceptors.response.use((res) => {
+            const result = res || {};
+            if (result.status === 200) {
+                return result.data;
+            }
+        });
+
+        // vue
+        const VM = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    activeName: '',
+                    items: [],
+                    full: false,
+                    search: '',
+                    visibleImg: true
+                }
+            },
+            created() {
+                this.getPages();
+            },
+            mounted() {
+                const hash = UrlDecode(window.location.hash)
+                this.search = hash.replace('#','');
+            },
+            methods: {
+                pageClick(item) {
+                    this.activeName = item.name;
+                    this.$refs.iframe.src = item.url
+                },
+                hrefUrl(item) {
+                    window.location.href = item.url;
+                },
+                getPages() {
+                    axios.get('./page.json').then((res) => {
+                        // const { data } = res;
+                        this.items = res;
+                    });
+                }
+            },
+            watch: {
+                search(val) {
+                    window.location.hash = val
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

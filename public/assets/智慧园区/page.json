@@ -1,0 +1,41 @@
+{
+    "pages": [
+        {
+            "page": "shouye.html",
+            "name": "智慧园区-首页",
+            "img": "images/shouye.jpg"
+        },{
+            "page": "chuyuan.html",
+            "name": "智慧园区-楚园",
+            "img": "images/chuyuan.jpg"
+        },{
+            "page": "daqinggu.html",
+            "name": "智慧园区-大清谷",
+            "img": "images/daqinggu.jpg"
+        },{
+            "page": "shenyuan.html",
+            "name": "智慧园区-申园",
+            "img": "images/shenyuan.jpg"
+        },{
+            "page": "shuyuan.html",
+            "name": "智慧园区-蜀园",
+            "img": "images/shuyuan.jpg"
+        },{
+            "page": "wuyuan.html",
+            "name": "智慧园区-吴园",
+            "img": "images/wuyuan.jpg"
+        },{
+            "page": "yanyuan.html",
+            "name": "智慧园区-燕园",
+            "img": "images/yanyuan.jpg"
+        },{
+            "page": "yueyuan.html",
+            "name": "智慧园区-粤园",
+            "img": "images/yueyuan.jpg"
+        },{
+            "page": "tongji.html",
+            "name": "智慧园区-武汉同济医院",
+            "img": "images/tongji.jpg"
+        }
+    ]
+}
